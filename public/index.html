@@ -1,16 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Programa de Colas</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <h1>Programa de Colas</h1>
+    <script src="socket.io/socket.io.js"></script>
+    <script>
+      const socket = io();
 
-</body>
+      socket.on("connect", () => {
+        console.log("conected to the server");
+      });
+      // TO LISTEN
+      socket.on("disconnect", () => {
+        console.log("connection server lost");
+      });
 
+      // SEND INFO TO THE SERVER
+      socket.emit("sendMessage", {
+        user: "Ivan",
+        message: "Hellow socket from the client",
+      });
+
+      // LISTEN INFO FROM SERVER
+      socket.on("sendMessage", (data) => {
+        console.log("info from server:", data);
+      });
+    </script>
+  </body>
 </html>
